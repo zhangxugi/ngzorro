@@ -1,0 +1,12 @@
+[nz-button] {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+nz-button-group [nz-button] {
+  margin-right: 0;
+}
+.example-input{
+  width: 200px;
+  margin-left: 1300px;
+}

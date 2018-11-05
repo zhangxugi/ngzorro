@@ -1,0 +1,27 @@
+<form nz-form  class="login-form" (ngSubmit)="onSubmit()" content="content">
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group [nzPrefix]="prefixUser">
+        <input type="text" nz-input name="name" placeholder="name"  [(ngModel)]="users.name">
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group [nzPrefix]="prefixLock">
+        <input type="password" nz-input name="password" placeholder="Password"  [(ngModel)]="users.password">
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <label nz-checkbox name="remember">
+        <span>Remember me</span>
+      </label>
+      <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
+      <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+

@@ -1,0 +1,68 @@
+<!--
+<div class="container">
+  <form (ngSubmit)="processForm()">
+    <div class="form group">
+      <label for="firstName">名字</label>
+      <input type="text" id ="firstName" name="firstName" class="form-control" [(ngModel)]="employee.firstName">
+    </div>
+    <div class="form group">
+      <label for="lastName">姓氏</label>
+      <input type="text" id ="lastName"name="lastName" class="form-control" [(ngModel)]="employee.lastName">
+    </div>
+    <div class="form group">
+      <label for="gender">性别</label>
+      <input type="text" id="gender" name="gender" class="form-control" [(ngModel)]="employee.gender">
+    </div>
+    <div class="form group">
+      <label for="dob">生日</label>
+      <input type="text" id="dob" name="dob" class="form-control" [(ngModel)]="employee.dob">
+    </div>
+    <div class="form group">
+      <label for="department">部门</label>
+      <input type="text" id="department" name="department" class="form-control" [(ngModel)]="employee.department">
+    </div>
+    <input type="submit" value="save" class="btn btn-success">
+
+  </form>
+</div>
+-->
+<form nz-form  (ngSubmit)="processForm()">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="firstName">姓名</nz-form-label>
+    <nz-form-control [nzSpan]="2">
+      <input nz-input name="firstName" type="firstName" id="firstName" [(ngModel)]="employee.firstName">
+    </nz-form-control>
+  </nz-form-item >
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="lastName">姓氏</nz-form-label>
+    <nz-form-control [nzSpan]="2">
+      <input nz-input name="lastName" type="lastName" id="lastName" [(ngModel)]="employee.lastName">
+    </nz-form-control>
+  </nz-form-item >
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="gender">性别</nz-form-label>
+    <nz-radio-group [(ngModel)]="employee.gender" name="gender">
+      <label nz-radio nzValue="男">男</label>
+      <label nz-radio nzValue="女">女</label>
+    </nz-radio-group>
+  </nz-form-item >
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="dob">日期</nz-form-label>
+    <nz-form-control [nzSm]="16" [nzXs]="24">
+      <nz-date-picker name="dob" [(ngModel)]="employee.dob" ></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="department">部门</nz-form-label>
+    <nz-form-control [nzSpan]="2">
+      <input nz-input name="department" type="department" id="department" [(ngModel)]="employee.department">
+    </nz-form-control>
+  </nz-form-item >
+
+
+  <nz-form-item nz-row style="margin-bottom:8px;">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button nz-button nzType="primary">添加</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>`,

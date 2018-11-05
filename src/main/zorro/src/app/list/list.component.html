@@ -1,0 +1,53 @@
+
+  <input  nz-input [(ngModel)]="inputValue" [nzAutocomplete]="auto" class="example-input">
+  <nz-autocomplete nzBackfill #auto>
+    <nz-auto-option  [nzValue]="firstName">
+      {{firstName}}
+    </nz-auto-option>
+  <!--  (click)="querys()"-->
+  </nz-autocomplete>
+  <button nz-button nzType="primary" ><i nz-icon type="search"></i>查询</button>
+
+<nz-table #borderedTable [nzData]="employees" nzBordered="true"  [nzPageSize]="2">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>名字</th>
+    <th>姓氏</th>
+    <th>性别</th>
+    <th>生日</th>
+    <th>部门</th>
+    <th length="10px">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of borderedTable.data">
+    <td>{{data.employeeId}}</td>
+    <td>{{data.firstName}}</td>
+    <td>{{data.lastName}}</td>
+    <td>{{data.gender}}</td>
+    <td>{{data.dob}}</td>
+    <td>{{data.department}}</td>
+    <td>
+      <button nz-button [nzSize]="size" (click)="newUser()">添加</button>
+      <button nz-button [nzSize]="size" (click)="deleteUser(data)">删除</button>
+      <button nz-button [nzSize]="size" (click)="updateUser(data)">修改</button>
+      <button nz-button nzType="primary" [nzSize]="size" (click)="exports()"><i nz-icon type="download"></i>Download</button>
+      <div>
+        <input type="file" name="file"  ng2FileSelect [uploader]="uploader" />
+        <button  nz-button [nzSize]="size"
+                (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" >
+          开始导入
+        </button>
+      </div>
+     <!-- <nz-upload
+        nzAction="https://jsonplaceholder.typicode.com/posts/"
+        [nzCustomRequest]="customReq">
+        <button nz-button>
+          <i nz-icon type="upload"></i><span>Click to Upload</span>
+        </button>
+      </nz-upload>-->
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
