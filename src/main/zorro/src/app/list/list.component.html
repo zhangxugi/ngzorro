@@ -1,12 +1,15 @@
+<div class="col-sm-6">
+  <input class="form-control form-control-sm width-200 float-right" id="mailbox-search" [(ngModel)]="searchText" type="text" placeholder="Search Messages">
+</div>
 
-  <input  nz-input [(ngModel)]="inputValue" [nzAutocomplete]="auto" class="example-input">
+
+  <input  nz-input [(ngModel)]="inputValue"  [nzAutocomplete]="auto" class="example-input">
   <nz-autocomplete nzBackfill #auto>
     <nz-auto-option  [nzValue]="firstName">
       {{firstName}}
     </nz-auto-option>
-  <!--  (click)="querys()"-->
   </nz-autocomplete>
-  <button nz-button nzType="primary" ><i nz-icon type="search"></i>查询</button>
+  <button nz-button nzType="primary" (click)="querys()"><i nz-icon type="search"></i>查询</button>
 
 <nz-table #borderedTable [nzData]="employees" nzBordered="true"  [nzPageSize]="2">
   <thead>
@@ -21,33 +24,36 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of borderedTable.data">
+  <tr *ngFor="let data of borderedTable.data | ScoresLevelPipe : searchText " >
     <td>{{data.employeeId}}</td>
     <td>{{data.firstName}}</td>
     <td>{{data.lastName}}</td>
     <td>{{data.gender}}</td>
-    <td>{{data.dob}}</td>
+    <td>{{data.dob|date:'yyyy-MM-dd'}}</td>
     <td>{{data.department}}</td>
     <td>
       <button nz-button [nzSize]="size" (click)="newUser()">添加</button>
       <button nz-button [nzSize]="size" (click)="deleteUser(data)">删除</button>
       <button nz-button [nzSize]="size" (click)="updateUser(data)">修改</button>
       <button nz-button nzType="primary" [nzSize]="size" (click)="exports()"><i nz-icon type="download"></i>Download</button>
-      <div>
+     <!-- <div>
         <input type="file" name="file"  ng2FileSelect [uploader]="uploader" />
         <button  nz-button [nzSize]="size"
                 (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length" >
           开始导入
         </button>
-      </div>
-     <!-- <nz-upload
-        nzAction="https://jsonplaceholder.typicode.com/posts/"
-        [nzCustomRequest]="customReq">
+      </div>-->
+
+ <nz-upload
+        [(nzFileList)]="fileList"
+        [nzBeforeUpload]="beforeUpload">
         <button nz-button>
-          <i nz-icon type="upload"></i><span>Click to Upload</span>
+          <i nz-icon type="upload"></i><span>Select File</span>
         </button>
-      </nz-upload>-->
+      </nz-upload>
+      <button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px">
+        {{ uploading ? 'Uploading' : 'Start Upload' }}
+      </button>
     </td>
   </tr>
   </tbody>
-</nz-table>

@@ -14,15 +14,17 @@ import {LoginsComponent} from "./logins/logins.component";
 import {HeroesComponent} from "./heroes/heroes.component";
 import {SaveEmployeeComponent} from "./save-employee/save-employee.component";
 import {FileUploadModule} from "ng2-file-upload";
-registerLocaleData(zh);
+import {ScoresLevelPipe} from "./list/Pipe/scores-level.pipe";
 
+registerLocaleData(zh);
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     LoginsComponent,
     HeroesComponent,
-    SaveEmployeeComponent
+    SaveEmployeeComponent,
+    ScoresLevelPipe
   ],
   imports: [
     BrowserModule,

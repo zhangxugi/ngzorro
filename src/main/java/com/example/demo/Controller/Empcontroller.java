@@ -187,8 +187,7 @@ private EmployeeService employeeService;
 
         //模糊查询
         @GetMapping("/findByNameLike/{firstname}")
-        public List<Employee> findByNameLike(@PathVariable String firstname) {
-        System.out.println(firstname+"sssss");
+        public List<Employee> findByNameLike(@RequestParam(value = "firstname") String firstname) {
             // 一定要加 "%"+参数名+"%"
             return emplRepository.findByFirstNameLike("%"+firstname+"%");
         }
