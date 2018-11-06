@@ -9,6 +9,6 @@ public interface EmployeeService {
     public List<Employee> teacherinfor();
     //导入
     void saveExcelList(List<Employee> typeLists);
-    //模糊查询
+
 
 }

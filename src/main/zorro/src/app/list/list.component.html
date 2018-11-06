@@ -1,7 +1,9 @@
-<div class="col-sm-6">
-  <input class="form-control form-control-sm width-200 float-right" id="mailbox-search" [(ngModel)]="searchText" type="text" placeholder="Search Messages">
-</div>
-
+<nz-input-group [nzSuffix]="suffixIconSearch"  class="esinput">
+  <input type="text" nz-input placeholder="input search text" [(ngModel)]="searchText">
+</nz-input-group>
+<ng-template #suffixIconSearch>
+  <i nz-icon type="search"></i>
+</ng-template>
 
   <input  nz-input [(ngModel)]="inputValue"  [nzAutocomplete]="auto" class="example-input">
   <nz-autocomplete nzBackfill #auto>

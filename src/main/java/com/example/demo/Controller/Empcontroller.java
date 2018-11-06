@@ -125,8 +125,9 @@ private EmployeeService employeeService;
 
         @RequestMapping("/Excelfile")
 
-        public  String upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        public  Map<String,String> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         System.out.println(file+"www");
+            Map<String,String> map=new HashMap<>();
             try {
                 List<Employee> typeLists = new ArrayList<Employee>();
 
@@ -174,15 +175,16 @@ private EmployeeService employeeService;
                     row.getCell(4).setCellType(Cell.CELL_TYPE_NUMERIC);
                     Type.setAddtime( HSSFDateUtil.getJavaDate(row.getCell(4).getNumericCellValue()));
                 }*/
-
                     typeLists.add(Type);
                 }
                 //调用service执行保存typeLists的方法
                 employeeService.saveExcelList(typeLists);
             }catch(Exception e){
-                e.printStackTrace();
+                map.put("msg","error");
+                return  map;
             }
-            return "成功";
+            map.put("msg","success");
+            return map;
         }
 
         //模糊查询

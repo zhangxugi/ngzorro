@@ -8,5 +8,11 @@ nz-button-group [nz-button] {
 }
 .example-input{
   width: 200px;
-  margin-left: 1300px;
+  margin-left: 1000px;
+}
+.esinput{
+  position: absolute;
+  width: 300px;
+  margin-left: 1px;
+
 }

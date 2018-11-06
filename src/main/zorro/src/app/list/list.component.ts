@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from "../EmployeeService/employee-service";
 import {Router} from "@angular/router";
 import {FileUploader} from "ng2-file-upload";
-import {HttpClient, HttpRequest} from "@angular/common/http";
+import {HttpClient, HttpRequest, HttpResponse} from "@angular/common/http";
 import {UploadFile, UploadXHRArgs} from "ng-zorro-antd/upload";
+import {filter} from "rxjs/operators";
+import {NzMessageService} from "ng-zorro-antd";
 
 
 
@@ -22,7 +24,7 @@ export class ListComponent implements OnInit {
   //实体类对象
  employees:any;
   private event: boolean;
-  constructor(private _employeeService:EmployeeService,private _router:Router,private http :HttpClient) { }
+  constructor(private _employeeService:EmployeeService,private _router:Router,private http :HttpClient,private msg: NzMessageService) { }
 /*  uploader: FileUploader = new FileUploader({ url: URL, itemAlias: 'file'});*/
 
   ngOnInit() {
@@ -85,24 +87,34 @@ export class ListComponent implements OnInit {
 
   handleUpload(): void {
     const formData = new FormData();
+    // tslint:disable-next-line:no-any
     this.fileList.forEach((file: any) => {
       formData.append('file', file);
     });
     this.uploading = true;
-    const req = new HttpRequest('POST', 'http://localhost:8080/api/Excelfile', formData, {});
-    this.http.request(req).subscribe((event: {}) => {
-    this.uploading = false;
-     // alert('upload successfully.');
-    }, err => {
-      // 处理失败
-      this.uploading = false;
-      alert('upload failed.');
+    // You can use any AJAX library you like
+    const req = new HttpRequest('POST', 'http://localhost:8080/api/Excelfile', formData, {
+      // reportProgress: true
     });
+    this.http
+      .request(req)
+      .pipe(filter(e => e instanceof HttpResponse))
+      .subscribe(
+        (event: {}) => {
+          this.uploading = false;
+          if(event['body'].msg === 'error'){
+            this.msg.success('upload failed.');
+          } else {
+            this.msg.success('upload successfully.');
+            this.ngOnInit();
+          }
+        },
+        err => {
+          this.uploading = false;
+          this.msg.error('upload failed.');
+        }
+      );
   }
-
-
-
-
 }
 
 
