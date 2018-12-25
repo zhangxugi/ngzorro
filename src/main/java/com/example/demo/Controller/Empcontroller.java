@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import ch.qos.logback.core.util.TimeUtil;
 import com.example.demo.mapper.EmplRepository;
 import com.example.demo.mapper.UsersRepository;
 import com.example.demo.pojo.Employee;
@@ -25,7 +26,7 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins="http://localhost:4200",allowedHeaders="*")
+@CrossOrigin(origins="http://localhost:8081",allowedHeaders="*")
 public class Empcontroller {
     @Autowired
     private EmplRepository emplRepository;
@@ -188,9 +189,26 @@ private EmployeeService employeeService;
         }
 
         //模糊查询
-        @GetMapping("/findByNameLike/{firstname}")
-        public List<Employee> findByNameLike(@RequestParam(value = "firstname") String firstname) {
+        @GetMapping("/findByNameLike")
+        public List<Employee> findByNameLike(@RequestParam(value = "firstName") String firstName) {
             // 一定要加 "%"+参数名+"%"
-            return emplRepository.findByFirstNameLike("%"+firstname+"%");
+            Optional<Employee> employees= emplRepository.findByFirstNameLike("%"+firstName+"%");
+            if(employees!=null||employees.equals(firstName)){
+                Employee temp = new Employee();
+                emplRepository.findAll().forEach(employee -> {
+                    temp.setFirstName(employees.get().getFirstName());
+                    temp.setLastName(employees.get().getLastName());
+                    temp.setDepartment(employees.get().getDepartment());
+                    temp.setDob(employees.get().getDob());
+                    temp.setGender(employees.get().getGender());
+                    emplRepository.save(temp);
+                    System.out.println(employee.getDepartment());
+                });
+                System.out.println("已添加");
+                System.out.println(emplRepository.findAll()+"条");
+                return emplRepository.findAll();
+            }
+            System.out.println("没有");
+            return  Collections.emptyList();
         }
 }

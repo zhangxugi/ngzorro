@@ -46,6 +46,6 @@ export class EmployeeService {
   }
 
   vagues(firstName:String){
-    return this._http.get(this.baseUrl+'/findByNameLike/'+firstName);
+    return this._http.get(this.baseUrl+'/findByNameLike?firstName='+ firstName);
   }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Administrator on 2018/10/29 0029.
@@ -17,5 +18,5 @@ public interface EmplRepository extends JpaRepository<Employee, Long> {
     Employee save(Employee employee);
 
     //模糊查询
-    List<Employee> findByFirstNameLike(String firstname);
+   Optional<Employee> findByFirstNameLike(String firstName);
 }
