@@ -191,22 +191,25 @@ private EmployeeService employeeService;
         //模糊查询
         @GetMapping("/findByNameLike")
         public List<Employee> findByNameLike(@RequestParam(value = "firstName") String firstName) {
+        System.out.println(firstName+"名字");
             // 一定要加 "%"+参数名+"%"
             Optional<Employee> employees= emplRepository.findByFirstNameLike("%"+firstName+"%");
-            if(employees!=null||employees.equals(firstName)){
-                Employee temp = new Employee();
-                emplRepository.findAll().forEach(employee -> {
-                    temp.setFirstName(employees.get().getFirstName());
-                    temp.setLastName(employees.get().getLastName());
-                    temp.setDepartment(employees.get().getDepartment());
-                    temp.setDob(employees.get().getDob());
-                    temp.setGender(employees.get().getGender());
-                    emplRepository.save(temp);
-                    System.out.println(employee.getDepartment());
-                });
-                System.out.println("已添加");
-                System.out.println(emplRepository.findAll()+"条");
-                return emplRepository.findAll();
+            if(employees.isPresent()) {
+                if (employees.get().getFirstName().equalsIgnoreCase(firstName)) {
+                    Employee temp = new Employee();
+                    emplRepository.findAll().forEach(employee -> {
+                        temp.setFirstName(employees.get().getFirstName());
+                        temp.setLastName(employees.get().getLastName());
+                        temp.setDepartment(employees.get().getDepartment());
+                        temp.setDob(employees.get().getDob());
+                        temp.setGender(employees.get().getGender());
+                        emplRepository.save(temp);
+                        System.out.println(employee.getDepartment());
+                    });
+                    System.out.println("已添加");
+                    System.out.println(emplRepository.findAll().size() + "条");
+                    return emplRepository.findAll();
+                }
             }
             System.out.println("没有");
             return  Collections.emptyList();
